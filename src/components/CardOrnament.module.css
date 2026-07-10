@@ -2,116 +2,11 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 34px;
-  height: 34px;
   z-index: 2;
   pointer-events: none;
-  perspective: 400px;
 }
 
-.cube {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  animation: ornament-spin 12s linear infinite;
-}
-
-.face {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  top: 6px;
-  left: 6px;
-  border: 1px solid currentColor;
-  background: linear-gradient(135deg, currentColor, transparent);
-  opacity: 0.5;
-}
-
-.faceFront {
-  transform: translateZ(11px);
-}
-
-.faceRight {
-  transform: rotateY(90deg) translateZ(11px);
-}
-
-.faceTop {
-  transform: rotateX(90deg) translateZ(11px);
-}
-
-@keyframes ornament-spin {
-  from {
-    transform: rotateX(0deg) rotateY(0deg);
-  }
-  to {
-    transform: rotateX(360deg) rotateY(360deg);
-  }
-}
-
-.orb {
-  width: 30px;
-  height: 30px;
-  margin: 2px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.5), currentColor 70%);
-  opacity: 0.4;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 16px currentColor;
-}
-
-.ring {
-  width: 32px;
-  height: 32px;
-  margin: 1px;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  opacity: 0.45;
-  box-shadow: 0 0 14px currentColor;
-}
-
-.crimson {
-  color: var(--grad-crimson);
-}
-
-.violet {
-  color: var(--grad-violet);
-}
-
-.cyan {
-  color: var(--grad-cyan);
-}
-
-.gold {
-  color: var(--grad-gold);
-}
-
-.silver {
-  color: var(--grad-silver);
-}
-
-.bronze {
-  color: var(--grad-bronze);
-}
-
-.blue {
-  color: var(--accent-blue);
-}
-
-.green {
-  color: var(--accent-green);
-}
-
-.red {
-  color: var(--accent-red);
-}
-
-.purple {
-  color: var(--accent-purple);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cube {
-    animation: none;
-  }
+.ornamentWide {
+  top: 18px;
+  right: 12px;
 }

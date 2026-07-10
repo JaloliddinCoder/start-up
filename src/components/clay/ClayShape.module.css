@@ -1,0 +1,116 @@
+.shape {
+  display: block;
+  width: var(--clay-size);
+  height: var(--clay-size);
+}
+
+/* ---------------------------------------------------------------
+   Tones (currentColor is consumed by each shape's gradients/glow)
+--------------------------------------------------------------- */
+.crimson {
+  color: var(--grad-crimson);
+}
+
+.violet {
+  color: var(--grad-violet);
+}
+
+.cyan {
+  color: var(--grad-cyan);
+}
+
+.gold {
+  color: var(--grad-gold);
+}
+
+.silver {
+  color: var(--grad-silver);
+}
+
+.bronze {
+  color: var(--grad-bronze);
+}
+
+.blue {
+  color: var(--accent-blue);
+}
+
+.green {
+  color: var(--accent-green);
+}
+
+.red {
+  color: var(--accent-red);
+}
+
+.purple {
+  color: var(--accent-purple);
+}
+
+/* ---------------------------------------------------------------
+   Striped 3D sphere (chiziqli shar)
+--------------------------------------------------------------- */
+.stripedSphere {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0) 38%),
+    repeating-linear-gradient(115deg, currentColor 0 10%, rgba(255, 255, 255, 0.08) 10% 20%);
+  box-shadow: 0 0 calc(var(--clay-size) * 0.55) currentColor, inset 0 0 calc(var(--clay-size) * 0.22) rgba(0, 0, 0, 0.45);
+  opacity: 0.88;
+}
+
+/* ---------------------------------------------------------------
+   Glossy dot sphere (yaltiroq nuqtali shar)
+--------------------------------------------------------------- */
+.dotSphere {
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.7), currentColor 55%, rgba(0, 0, 0, 0.35) 100%);
+  box-shadow: 0 0 calc(var(--clay-size) * 0.5) currentColor;
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------------
+   Wavy 3D ribbon / snake (to'lqinli lenta)
+--------------------------------------------------------------- */
+.ribbon {
+  width: calc(var(--clay-size) * 2.5);
+  height: calc(var(--clay-size) * 0.6);
+  border-radius: 60% 40% 70% 30% / 45% 65% 35% 55%;
+  background: linear-gradient(120deg, currentColor, rgba(255, 255, 255, 0.4) 45%, currentColor 82%);
+  box-shadow: 0 0 calc(var(--clay-size) * 0.45) currentColor;
+  opacity: 0.78;
+}
+
+/* ---------------------------------------------------------------
+   Floating torus / donut (halqa)
+--------------------------------------------------------------- */
+.torus {
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 46%, rgba(255, 255, 255, 0.12) 47%, transparent 54%);
+  border: calc(var(--clay-size) * 0.22) solid currentColor;
+  box-shadow: 0 0 calc(var(--clay-size) * 0.45) currentColor, inset 0 0 calc(var(--clay-size) * 0.18) rgba(255, 255, 255, 0.28);
+  opacity: 0.82;
+}
+
+/* ---------------------------------------------------------------
+   Curved arc (yaysimon shakl)
+--------------------------------------------------------------- */
+.arc {
+  border-radius: 50%;
+  border: calc(var(--clay-size) * 0.18) solid transparent;
+  border-top-color: currentColor;
+  border-right-color: currentColor;
+  transform: rotate(-45deg);
+  box-shadow: 0 0 calc(var(--clay-size) * 0.4) currentColor;
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------------------------
+   Sharp prism / pyramid (prizma)
+--------------------------------------------------------------- */
+.prism {
+  background: linear-gradient(160deg, currentColor, rgba(255, 255, 255, 0.35) 50%, currentColor 100%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  filter: drop-shadow(0 0 calc(var(--clay-size) * 0.32) currentColor);
+  opacity: 0.85;
+}
