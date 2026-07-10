@@ -1,0 +1,40 @@
+.tiltCard {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tiltContent {
+  position: relative;
+  transform: translateZ(0);
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tiltCard:hover .glare {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .tiltCard {
+    transform: none !important;
+  }
+
+  .glare {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiltCard {
+    transform: none !important;
+  }
+}

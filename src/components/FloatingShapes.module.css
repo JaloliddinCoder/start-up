@@ -1,0 +1,132 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Rotating tech cube */
+.cubeScene {
+  position: absolute;
+  top: 96px;
+  right: 9%;
+  width: 64px;
+  height: 64px;
+  perspective: 600px;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: cube-spin 18s linear infinite;
+}
+
+.cubeFace {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border: 1px solid rgba(139, 92, 246, 0.55);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 42, 84, 0.14),
+    rgba(139, 92, 246, 0.14),
+    rgba(6, 182, 212, 0.14)
+  );
+  box-shadow: inset 0 0 24px rgba(139, 92, 246, 0.25);
+}
+
+.faceFront {
+  transform: translateZ(32px);
+}
+
+.faceBack {
+  transform: translateZ(-32px) rotateY(180deg);
+}
+
+.faceRight {
+  transform: rotateY(90deg) translateZ(32px);
+}
+
+.faceLeft {
+  transform: rotateY(-90deg) translateZ(32px);
+}
+
+.faceTop {
+  transform: rotateX(90deg) translateZ(32px);
+}
+
+.faceBottom {
+  transform: rotateX(-90deg) translateZ(32px);
+}
+
+@keyframes cube-spin {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+/* Glassmorphic sphere */
+.sphere {
+  position: absolute;
+  top: 270px;
+  right: 15%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(255, 255, 255, 0.32),
+    rgba(139, 92, 246, 0.14) 45%,
+    rgba(6, 182, 212, 0.08) 75%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 44px rgba(139, 92, 246, 0.2);
+}
+
+/* Glowing wireframe torus */
+.torus {
+  position: absolute;
+  top: 56px;
+  left: 6%;
+  width: 150px;
+  height: 150px;
+}
+
+.torusRingA,
+.torusRingB {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.torusRingA {
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  transform: rotate(8deg) scaleY(0.42);
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.18);
+}
+
+.torusRingB {
+  border: 1px dashed rgba(255, 42, 84, 0.32);
+  transform: rotate(-24deg) scaleY(0.58);
+}
+
+@media (max-width: 900px) {
+  .cubeScene,
+  .sphere,
+  .torus {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube {
+    animation: none;
+  }
+}
