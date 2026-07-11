@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Award } from "lucide-react";
+import { Award, BadgePercent } from "lucide-react";
 import CardOrnament from "./CardOrnament";
 import TiltCard from "./TiltCard";
 import styles from "./Prizes.module.css";
@@ -22,7 +22,7 @@ const PRIZES = [
   },
   {
     place: "3-o'rin jamoasi uchun",
-    amount: "3.000.000 so'm",
+    amount: "5.000.000 so'm",
     tier: "bronze",
     glow: styles.glowBronze,
     text: "gradient-text--bronze",
@@ -65,6 +65,22 @@ export default function Prizes() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className={styles.incentive}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <span className={styles.incentiveIcon}>
+            <BadgePercent size={18} strokeWidth={2} />
+          </span>
+          <p className={styles.incentiveText}>
+            Barcha qolgan ishtirokchilarga Target IT kurslariga{" "}
+            <strong>30% chegirma</strong> taqdim etiladi!
+          </p>
+        </motion.div>
       </div>
     </section>
   );

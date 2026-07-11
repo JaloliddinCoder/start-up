@@ -4,9 +4,9 @@ import TiltCard from "./TiltCard";
 import styles from "./MetricsGrid.module.css";
 
 const METRICS = [
-  { value: "20.000.000 so'm", label: "Umumiy mukofot jamg'armasi", desc: "1, 2 va 3-o'rin jamoalari orasida taqsimlanadi.", tone: "crimson" },
-  { value: "150", label: "Kutilayotgan ishtirokchilar", desc: "Tinchlik filialida jamlanadigan startap ishtirokchilari.", tone: "violet" },
-  { value: "50", label: "Raqobatdosh jamoalar", desc: "Saralovdan o'tib asosiy tadbirda ishtirok etadigan jamoalar.", tone: "cyan" },
+  { value: "22.000.000 so'm", label: "Umumiy mukofot jamg'armasi", desc: "1, 2 va 3-o'rin jamoalari orasida taqsimlanadi.", tone: "crimson" },
+  { value: "150 - 250 ta ishtirokchi", label: "Kutilayotgan ishtirokchilar", desc: "Asosiy tadbir maydonida jamlanadigan startap ishtirokchilari.", tone: "violet", compact: true },
+  { value: "50 ta jamoa (har bir jamoada 3–5 nafardan ishtirokchi)", label: "Raqobatdosh jamoalar", desc: "Saralovdan o'tib asosiy tadbirda ishtirok etadigan jamoalar.", tone: "cyan", compact: true },
 ];
 
 export default function MetricsGrid() {
@@ -17,8 +17,8 @@ export default function MetricsGrid() {
           <div className="section__eyebrow eyebrow">Chempionat haqida</div>
           <h2 className="section__title">Raqamlarda miqyos</h2>
           <p className="section__desc">
-            Start-up Tinchlik — maktab o'quvchilari uchun O'zbekistondagi eng
-            yirik tadbirkorlik tanlovi.
+            Target International School Startup Championship — maktab
+            o'quvchilari uchun O'zbekistondagi eng yirik tadbirkorlik tanlovi.
           </p>
         </div>
 
@@ -33,7 +33,9 @@ export default function MetricsGrid() {
             >
               <TiltCard className={`${styles.card} gradient-border`}>
                 <CardOrnament variant="ring" tone={metric.tone} />
-                <div className={`${styles.value} gradient-text`}>{metric.value}</div>
+                <div className={`${styles.value} gradient-text ${metric.compact ? styles.valueCompact : ""}`}>
+                  {metric.value}
+                </div>
                 <div className={styles.label}>{metric.label}</div>
                 <p className={styles.desc}>{metric.desc}</p>
               </TiltCard>

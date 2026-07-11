@@ -19,7 +19,7 @@ function App() {
         <MetricsGrid />
         <TracksGrid />
         <Prizes />
-        <WorkflowTimeline />
+        {/* <WorkflowTimeline /> */}
         <RegistrationForm />
         <Faq />
       </main>

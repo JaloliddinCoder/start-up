@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./CountdownTimer.module.css";
 
-const TARGET_DATE = new Date("2026-10-18T09:00:00+05:00");
+const TARGET_DATE = new Date("2026-07-27T09:00:00+05:00");
 
 function getTimeLeft() {
   const diff = Math.max(0, TARGET_DATE.getTime() - Date.now());

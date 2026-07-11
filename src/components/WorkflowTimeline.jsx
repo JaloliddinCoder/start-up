@@ -30,36 +30,36 @@ const STAGES = [
     id: "stage-1",
     number: "I bosqich",
     title: "Onlayn — Ro'yxatga olish va saralash",
-    badge: "Saralash Guruhi: 4 nafar IT + 2 nafar biznes mutaxassisi",
+    badge: "Ochiq va bepul ro'yxatdan o'tish",
     badgeIcon: Users,
     tasks: [
-      { icon: Cpu, text: "Ishtirokchilarni ro'yxatdan o'tkazish uchun maxsus onlayn platforma yaratish." },
-      { icon: Video, text: "5 ta marketing videosini tayyorlash va ular uchun target reklama kampaniyasini yo'lga qo'yish." },
-      { icon: Target, text: "Telegram kanallari uchun reklama postlarini tayyorlash va faol tarqatish." },
-      { icon: Users, text: "Ishtirokchilar savollariga tezkor javob berish va administratorlik uchun 2 nafar mutaxassisni jalb qilish." },
-      { icon: ShieldCheck, text: "Loyihalarni chuqur tahlil qilib keyingi bosqichga saralash." },
+      { icon: Cpu, text: "Rasmiy veb-sayt orqali onlayn ariza topshirish oson va tezkor." },
+      { icon: Video, text: "Loyihangizni tanishtiruvchi qisqa video orqali g'oyangizni namoyish eting." },
+      { icon: Target, text: "Barcha yangiliklar va e'lonlar rasmiy Telegram kanalida e'lon qilinadi." },
+      { icon: Users, text: "Savol va takliflaringiz uchun qo'llab-quvvatlash jamoasi doim yordamga tayyor." },
+      { icon: ShieldCheck, text: "Ekspertlar hay'ati barcha arizalarni chuqur tahlil qilib, eng munosib jamoalarni saralaydi." },
     ],
   },
   {
     id: "stage-2",
     number: "II bosqich",
-    title: "Asosiy Tadbir — Tinchlik Filiali",
+    title: "Asosiy Tadbir — Bootcamp va Saralash Kuni",
     badge: "150 ishtirokchi, 50 jamoa",
     badgeIcon: Award,
     tasks: [
-      { icon: Award, text: "150 ta ishtirokchi uchun maxsus badge (bejik) va Target logotipli materiallarni tayyorlash." },
-      { icon: Building2, text: "Tinchlik filialini tadbir muhitiga moslab to'liq jihozlash va tayyorlash." },
-      { icon: Users, text: "Ishtirokchilarni kutib olish va joylashtirish uchun 4 nafar administrator." },
-      { icon: Cpu, text: "Texnik muhit va tarmoqni qo'llab-quvvatlash uchun 2 nafar tizim administratori." },
-      { icon: Compass, text: "Ishtirokchilarga yo'l-yo'riq ko'rsatish va yo'naltirish uchun 3–4 nafar tutor." },
-      { icon: GraduationCap, text: "Har bir startap jamoasi bilan ishlash va jadal mentorlik uchun 4 nafar IT + 4 nafar biznes eksperti." },
-      { icon: ClipboardCheck, text: "50 ta startap jamoasi a'zolari uchun rasmiy sertifikatlarni tayyorlash va chop etish." },
-      { icon: Gift, text: "50 ta maxsus esdalik sovg'asini Target logotipi bilan brendlash va tayyorlash." },
-      { icon: Mic, text: "IT va startap sohasidan nufuzli mehmon spikerlarni taklif etish." },
-      { icon: ShieldCheck, text: "Eng kuchli va istiqbolli 10 ta jamoani yakuniy bosqichga saralab olish." },
-      { icon: Rocket, text: "Saralangan jamoalar uchun 1 oylik \"Start-up Hub\" akseleratsiya dasturini kurs shaklida tashkil etish." },
-      { icon: Coffee, text: "Ovqatlanish va kofebreyklarni tashkil etish (professional oshpazlarni jalb qilish)." },
-      { icon: Network, text: "Umumiy tarmoq va ovqatlanish uchun maxsus vaqt ajratish integratsiyasi." },
+      { icon: Award, text: "Barcha ishtirokchilarga maxsus Target brendli badge va tadbir materiallari taqdim etiladi." },
+      { icon: Building2, text: "Zamonaviy va qulay tadbir maydonida barcha ishtirokchilarni kutib olamiz." },
+      { icon: Users, text: "Ro'yxatdan o'tish va yo'naltirish uchun mehmondo'st jamoa har doim yordamga tayyor." },
+      { icon: Cpu, text: "Barcha texnik jarayonlar barqaror va uzluksiz internet aloqasi bilan ta'minlanadi." },
+      { icon: Compass, text: "Tadbir davomida ishtirokchilarga yo'l-yo'riq ko'rsatib boradigan shaxsiy tutorlar biriktiriladi." },
+      { icon: GraduationCap, text: "Tajribali IT va biznes ekspertlaridan tashkil topgan mentorlar jamoangiz bilan bevosita ishlaydi." },
+      { icon: ClipboardCheck, text: "Barcha startap jamoasi a'zolariga rasmiy ishtirok sertifikati taqdim etiladi." },
+      { icon: Gift, text: "Har bir ishtirokchi Target logotipli maxsus esdalik sovg'asini qo'lga kiritadi." },
+      { icon: Mic, text: "IT va startap sohasining yetakchi vakillari mehmon spiker sifatida chiqish qiladi." },
+      { icon: ShieldCheck, text: "Eng kuchli 10 ta jamoa Grand Finalga yo'llanma oladi." },
+      { icon: Rocket, text: "Saralangan jamoalar uchun 1 oylik \"Start-up Hub\" akseleratsiya dasturi tashkil etiladi." },
+      { icon: Coffee, text: "Kun davomida to'yimli ovqatlanish va kofe-breyklar tashkil etiladi." },
+      { icon: Network, text: "Networking uchun maxsus vaqt ajratilib, boshqa jamoalar va mentorlar bilan tanishish imkoniyati yaratiladi." },
     ],
   },
   {
@@ -69,11 +69,11 @@ const STAGES = [
     badge: "Demo Day & Grand Ceremony",
     badgeIcon: Trophy,
     tasks: [
-      { icon: Presentation, text: "Saralangan eng yaxshi 10 ta jamoaning hakamlar hay'ati (Jury) oldida o'z startap loyihalarini Pitch qilish (taqdim etish) jarayoni." },
-      { icon: Building2, text: "Hakamlar hay'ati va mehmonlar faoliyati uchun qulay, yuqori darajadagi professional muhit." },
-      { icon: ShieldCheck, text: "Hakamlar hay'atining mezonlar asosida loyihalarni baholashi va g'oliblarni aniqlashi." },
-      { icon: Trophy, text: "Eng yaxshi jamoalarni pul mukofotlari, diplomlar, sertifikatlar va Target esdalik sovg'alari bilan tantanali taqdirlash." },
-      { icon: PartyPopper, text: "Rasmiy yopilish marosimi va taklif etilgan mehmon spikerlarning yakuniy motivatsion nutqlari." },
+      { icon: Presentation, text: "Eng yaxshi 10 ta jamoa o'z startap loyihalarini nufuzli hakamlar hay'ati oldida taqdim etadi." },
+      { icon: Building2, text: "Barcha mehmonlar va ishtirokchilar uchun yuqori darajadagi qulay tadbir muhiti tashkil etiladi." },
+      { icon: ShieldCheck, text: "Hakamlar hay'ati aniq mezonlar asosida g'oliblarni adolatli tanlaydi." },
+      { icon: Trophy, text: "G'olib jamoalar qimmatli pul mukofotlari, diplom, sertifikat va maxsus sovg'alar bilan taqdirlanadi." },
+      { icon: PartyPopper, text: "Tadbir taniqli mehmon spikerlarning ilhomlantiruvchi nutqlari bilan yakunlanadi." },
     ],
   },
 ];
@@ -86,11 +86,11 @@ export default function WorkflowTimeline() {
       <div className="shell">
         <div className={styles.headGrid}>
           <div className="section__head">
-            <div className="section__eyebrow eyebrow">3-Bosqichli Tashkiliy Reja</div>
-            <h2 className="section__title">Chempionat ish jarayoni</h2>
+            <div className="section__eyebrow eyebrow">Tadbir Yo'l Xaritasi</div>
+            <h2 className="section__title">3 bosqichda g'oyadan g'alabagacha</h2>
             <p className="section__desc">
-              G'oyadan Grand Finalgacha — har bir bosqichning aniq vazifalari,
-              jamoa tarkibi va texnik ta'minoti bilan.
+              Ro'yxatdan tortib Grand Finalgacha — har bir bosqichda sizni nima
+              kutayotganini bilib oling.
             </p>
           </div>
 

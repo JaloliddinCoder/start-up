@@ -38,7 +38,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
           >
-            Start-up Tinchlik: Target Xalqaro Maktabi Startap Tanlovi
+            Target International School Startup Championship
           </motion.h1>
 
           <motion.p

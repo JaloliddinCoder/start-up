@@ -6,7 +6,7 @@ const ROWS = [
   { icon: "◆", title: "Loyihani yuborish", meta: "EdTech · 12-jamoa", keys: ["⌘", "K"] },
   { icon: "◈", title: "Mentor bilan uchrashuv", meta: "Bootcamp · Hafta 3", keys: ["⌘", "M"] },
   { icon: "▣", title: "Pitch-deck yuklash", meta: "Grand Final tayyorgarligi", keys: ["⏎"] },
-  { icon: "◐", title: "Jamoa a'zolarini boshqarish", meta: "5 ta a'zo faol", keys: ["⌘", "U"] },
+  { icon: "◐", title: "Jamoa a'zolarini boshqarish", meta: "3-5 ta a'zo faol", keys: ["⌘", "U"] },
   { icon: "▤", title: "Baholash natijalari", meta: "Selection bosqichi", keys: ["⌘", "R"] },
 ];
 

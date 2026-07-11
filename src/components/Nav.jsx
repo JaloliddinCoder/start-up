@@ -22,7 +22,7 @@ export default function Nav() {
       <div className={`shell ${styles.navInner}`}>
         <a href="#top" className={styles.brand}>
           <span className={styles.brandMark}>▲</span>
-          Start-up Tinchlik
+          Target Startup
         </a>
 
         <nav className={styles.links}>
