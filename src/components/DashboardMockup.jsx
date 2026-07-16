@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./DashboardMockup.module.css";
 
 const ROWS = [
-  { icon: "◆", title: "Loyihani yuborish", meta: "EdTech · 12-jamoa", keys: ["⌘", "K"] },
-  { icon: "◈", title: "Mentor bilan uchrashuv", meta: "Bootcamp · Hafta 3", keys: ["⌘", "M"] },
-  { icon: "▣", title: "Pitch-deck yuklash", meta: "Grand Final tayyorgarligi", keys: ["⏎"] },
-  { icon: "◐", title: "Jamoa a'zolarini boshqarish", meta: "3-5 ta a'zo faol", keys: ["⌘", "U"] },
-  { icon: "▤", title: "Baholash natijalari", meta: "Selection bosqichi", keys: ["⌘", "R"] },
+  { id: "submit", icon: "◆", keys: ["⌘", "K"] },
+  { id: "mentor", icon: "◈", keys: ["⌘", "M"] },
+  { id: "pitch", icon: "▣", keys: ["⏎"] },
+  { id: "team", icon: "◐", keys: ["⌘", "U"] },
+  { id: "results", icon: "▤", keys: ["⌘", "R"] },
 ];
 
 export default function DashboardMockup() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
 
   return (
     <section id="mockup" className="section">
@@ -32,20 +34,20 @@ export default function DashboardMockup() {
               <span className={styles.dot} />
               <span className={styles.dot} />
             </div>
-            <span className={styles.titleText}>Startup Chempionati — Boshqaruv paneli</span>
+            <span className={styles.titleText}>{t("dashboardMockup.titleText")}</span>
             <span />
           </div>
 
           <div className={styles.searchRow}>
             <span className={styles.searchIcon}>⌕</span>
-            <span className={styles.searchPlaceholder}>Buyruq yoki loyiha qidirish…</span>
+            <span className={styles.searchPlaceholder}>{t("dashboardMockup.searchPlaceholder")}</span>
             <span className={styles.searchKeycap}>⌘ K</span>
           </div>
 
           <div className={styles.rows}>
             {ROWS.map((row, index) => (
               <button
-                key={row.title}
+                key={row.id}
                 type="button"
                 className={`${styles.row} ${index === activeIndex ? styles.rowActive : ""}`}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -53,8 +55,8 @@ export default function DashboardMockup() {
               >
                 <span className={styles.rowIcon}>{row.icon}</span>
                 <span className={styles.rowText}>
-                  <span className={styles.rowTitle}>{row.title}</span>
-                  <span className={styles.rowMeta}>{row.meta}</span>
+                  <span className={styles.rowTitle}>{t(`dashboardMockup.rows.${row.id}.title`)}</span>
+                  <span className={styles.rowMeta}>{t(`dashboardMockup.rows.${row.id}.meta`)}</span>
                 </span>
                 <span className={styles.keycapGroup}>
                   {row.keys.map((key) => (

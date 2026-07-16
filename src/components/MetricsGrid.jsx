@@ -1,31 +1,31 @@
 import { motion } from "framer-motion";
 import CardOrnament from "./CardOrnament";
 import TiltCard from "./TiltCard";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./MetricsGrid.module.css";
 
 const METRICS = [
-  { value: "22.000.000 so'm", label: "Umumiy mukofot jamg'armasi", desc: "1, 2 va 3-o'rin jamoalari orasida taqsimlanadi.", tone: "crimson" },
-  { value: "150 - 250 ta ishtirokchi", label: "Kutilayotgan ishtirokchilar", desc: "Asosiy tadbir maydonida jamlanadigan startap ishtirokchilari.", tone: "violet", compact: true },
-  { value: "50 ta jamoa (har bir jamoada 3–5 nafardan ishtirokchi)", label: "Raqobatdosh jamoalar", desc: "Saralovdan o'tib asosiy tadbirda ishtirok etadigan jamoalar.", tone: "cyan", compact: true },
+  { id: "prizePool", tone: "crimson" },
+  { id: "participants", tone: "violet", compact: true },
+  { id: "teams", tone: "cyan", compact: true },
 ];
 
 export default function MetricsGrid() {
+  const { t } = useLanguage();
+
   return (
     <section className="section">
       <div className="shell">
         <div className="section__head">
-          <div className="section__eyebrow eyebrow">Chempionat haqida</div>
-          <h2 className="section__title">Raqamlarda miqyos</h2>
-          <p className="section__desc">
-            Target International School Startup Championship — maktab
-            o'quvchilari uchun O'zbekistondagi eng yirik tadbirkorlik tanlovi.
-          </p>
+          <div className="section__eyebrow eyebrow">{t("metrics.eyebrow")}</div>
+          <h2 className="section__title">{t("metrics.title")}</h2>
+          <p className="section__desc">{t("metrics.desc")}</p>
         </div>
 
         <div className={styles.grid}>
           {METRICS.map((metric, index) => (
             <motion.div
-              key={metric.label}
+              key={metric.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -34,10 +34,10 @@ export default function MetricsGrid() {
               <TiltCard className={`${styles.card} gradient-border`}>
                 <CardOrnament variant="ring" tone={metric.tone} />
                 <div className={`${styles.value} gradient-text ${metric.compact ? styles.valueCompact : ""}`}>
-                  {metric.value}
+                  {t(`metrics.items.${metric.id}.value`)}
                 </div>
-                <div className={styles.label}>{metric.label}</div>
-                <p className={styles.desc}>{metric.desc}</p>
+                <div className={styles.label}>{t(`metrics.items.${metric.id}.label`)}</div>
+                <p className={styles.desc}>{t(`metrics.items.${metric.id}.desc`)}</p>
               </TiltCard>
             </motion.div>
           ))}

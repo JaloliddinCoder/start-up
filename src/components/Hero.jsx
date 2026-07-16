@@ -2,9 +2,12 @@ import { motion } from "framer-motion";
 import CountdownTimer from "./CountdownTimer";
 import FloatingShapes from "./FloatingShapes";
 import IllusionAsset from "./IllusionAsset";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section id="top" className={styles.hero}>
       <div className={styles.stripe} aria-hidden="true">
@@ -29,7 +32,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Target International School taqdim etadi
+            {t("hero.eyebrow")}
           </motion.span>
 
           <motion.h1
@@ -38,7 +41,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
           >
-            Target International School Startup Championship
+            {t("hero.headline")}
           </motion.h1>
 
           <motion.p
@@ -47,8 +50,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12 }}
           >
-            G'oyangizni biznesga aylantiring, nufuzli investorlar va ekspertlar
-            oldida o'z loyihangizni himoya qiling!
+            {t("hero.subtitle")}
           </motion.p>
 
           <motion.div
@@ -58,10 +60,10 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.18 }}
           >
             <a href="#register" className="btn-pill">
-              Chempionatda qatnashish
+              {t("hero.ctaPrimary")}
             </a>
             <a href="#mockup" className="btn-ghost">
-              Platformani ko'rish
+              {t("hero.ctaSecondary")}
             </a>
           </motion.div>
 
@@ -71,7 +73,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.24 }}
           >
-            <span className={styles.countdownLabel}>Yakuniy pitch kunigacha qoldi</span>
+            <span className={styles.countdownLabel}>{t("hero.countdownLabel")}</span>
             <CountdownTimer />
           </motion.div>
         </div>

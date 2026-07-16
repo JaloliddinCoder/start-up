@@ -8,10 +8,11 @@ import WorkflowTimeline from "./components/WorkflowTimeline";
 import RegistrationForm from "./components/RegistrationForm";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
+import { LanguageProvider } from "./i18n/LanguageContext";
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <Nav />
       <main>
         <Hero />
@@ -24,7 +25,7 @@ function App() {
         <Faq />
       </main>
       <Footer />
-    </>
+    </LanguageProvider>
   );
 }
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, Send } from "lucide-react";
+import { Lightbulb, Send, Sparkles } from "lucide-react";
 import IllusionAsset from "./IllusionAsset";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./RegistrationForm.module.css";
 
 const PHONE_PREFIX = "+998 ";
@@ -18,6 +19,24 @@ const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
 // -----------------------------------------------------------------------
 
+// --- Google Sheets webhook ----------------------------------------------
+// IMPORTANT: a normal Google Sheets document link (the one you open in your
+// browser to view/edit rows) can NOT receive HTTP POST requests — Google
+// Sheets has no built-in endpoint for that. To actually collect leads into
+// this sheet you must deploy a Google Apps Script "Web App" bound to it:
+//   1. Open the sheet → Extensions → Apps Script.
+//   2. Paste a doPost(e) handler that reads e.postData.contents (JSON)
+//      and appends a row via SpreadsheetApp.
+//   3. Deploy → New deployment → Web app → execute as "Me", access
+//      "Anyone" → copy the generated URL (it ends in /exec).
+//   4. Paste that /exec URL below in place of the document link.
+// Until that's done, this request will fail — the code already handles
+// that failure gracefully (see handleSubmit) so the Telegram delivery
+// still goes through and the user still sees a success state.
+const GOOGLE_SHEETS_WEBHOOK_URL = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL;
+ 
+// -----------------------------------------------------------------------
+
 function formatPhone(rawValue) {
   const digits = rawValue.replace(/\D/g, "").slice(3, 12);
   const parts = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)];
@@ -31,15 +50,14 @@ function formatPhone(rawValue) {
 
 function buildTelegramMessage(form) {
   return [
-    "🚨 *YANGI ARIZA: Target International School Startup Championship* 🚨",
+    "🚨 *TARGET STARTUP CHAMPIONSHIP* 🚨",
     "",
     `👤 *Ism va Familiya:* ${form.fullName}`,
     `📞 *Telefon:* ${form.phone}`,
     `📱 *Telegram:* ${form.telegramUsername}`,
-    `💡 *Loyiha nomi:* ${form.projectTitle}`,
-    `🌐 *Loyiha sayti:* ${form.projectUrl}`,
     `👥 *Jamoa a'zolari:* ${form.teamSize}`,
-    `📝 *G'oya qisqacha:* —`,
+    `❓ *Nima uchun startup qurmoqchisiz:* ${form.whyStartup}`,
+    `❓ *Target Hackathondan kutilmalar:* ${form.expectations}`,
   ].join("\n");
 }
 
@@ -63,18 +81,54 @@ async function sendToTelegramGroup(form) {
   return response.json();
 }
 
+function buildLeadPayload(form) {
+  return {
+    name: form.fullName,
+    phone: form.phone,
+    telegramUsername: form.telegramUsername,
+    teamSize: form.teamSize,
+    whyStartup: form.whyStartup,
+    expectations: form.expectations,
+  };
+}
+
+async function sendToGoogleSheets(form) {
+  // Apps Script Web Apps don't answer the CORS preflight (OPTIONS) request
+  // with an Access-Control-Allow-Origin header, so a POST with
+  // Content-Type: application/json gets blocked by the browser before it
+  // ever reaches doPost — that's the "No 'Access-Control-Allow-Origin'
+  // header" error. Also, /exec responses go through a redirect to
+  // script.googleusercontent.com that frequently drops CORS headers too,
+  // even on requests that skip preflight.
+  //
+  // The reliable workaround: send as a no-cors, text/plain request. Apps
+  // Script still receives the raw body via e.postData.contents and can
+  // JSON.parse() it there (Content-Type is metadata, not a schema check).
+  // The tradeoff is we can't read the response back — with mode: "no-cors"
+  // the response is opaque, so this call is fire-and-forget. Verify rows
+  // are actually landing by checking the sheet itself or the Apps Script
+  // project's Executions log, not by trusting a resolved promise here.
+  await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(buildLeadPayload(form)),
+  });
+}
+
 const INITIAL_STATE = {
   fullName: "",
   phone: PHONE_PREFIX,
   telegramUsername: "",
-  projectTitle: "",
-  projectUrl: "",
+  whyStartup: "",
+  expectations: "",
   teamSize: "",
 };
 
 export default function RegistrationForm() {
   const [form, setForm] = useState(INITIAL_STATE);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const { t } = useLanguage();
 
   const isLoading = status === "loading";
 
@@ -90,11 +144,26 @@ export default function RegistrationForm() {
     event.preventDefault();
     setStatus("loading");
 
-    try {
-      await sendToTelegramGroup(form);
-      setStatus("success");
-    } catch (error) {
+    // Route the lead to both destinations in parallel. We only surface a
+    // hard error if BOTH deliveries fail — if just one platform is down
+    // (e.g. the Sheets webhook isn't deployed yet) we still show success
+    // so the applicant isn't blocked by a backend that's mid-setup.
+    const [telegramResult, sheetsResult] = await Promise.allSettled([
+      sendToTelegramGroup(form),
+      sendToGoogleSheets(form),
+    ]);
+
+    if (telegramResult.status === "rejected") {
+      console.error("Telegram delivery failed:", telegramResult.reason);
+    }
+    if (sheetsResult.status === "rejected") {
+      console.error("Google Sheets delivery failed:", sheetsResult.reason);
+    }
+
+    if (telegramResult.status === "rejected" && sheetsResult.status === "rejected") {
       setStatus("error");
+    } else {
+      setStatus("success");
     }
   };
 
@@ -104,11 +173,9 @@ export default function RegistrationForm() {
         <div className={styles.registerGrid}>
           <div className={styles.wrapper}>
             <div className="section__head">
-              <div className="section__eyebrow eyebrow">Ro'yxatdan o'tish</div>
-              <h2 className="section__title">Jamoangizni ro'yxatga oling</h2>
-              <p className="section__desc">
-                Ariza 3 daqiqa vaqt oladi. Tasdiqlangandan so'ng operatorlarimiz siz bilan bog'lanadi.
-              </p>
+              <div className="section__eyebrow eyebrow">{t("register.eyebrow")}</div>
+              <h2 className="section__title">{t("register.title")}</h2>
+              <p className="section__desc">{t("register.desc")}</p>
             </div>
 
             <motion.div
@@ -121,20 +188,18 @@ export default function RegistrationForm() {
               {status === "success" ? (
                 <div className={styles.success}>
                   <span className={styles.successMark}>✓</span>
-                  <h3 className={styles.successTitle}>Ariza qabul qilindi</h3>
-                  <p className={styles.successDesc}>
-                    Tez orada operatorlarimiz siz bilan bog'lanadi.
-                  </p>
+                  <h3 className={styles.successTitle}>{t("register.successTitle")}</h3>
+                  <p className={styles.successDesc}>{t("register.successDesc")}</p>
                 </div>
               ) : (
                 <form className={styles.form} onSubmit={handleSubmit}>
                   <label className={styles.field}>
-                    <span className={styles.label}>To'liq ism</span>
+                    <span className={styles.label}>{t("register.fields.fullName.label")}</span>
                     <input
                       className={styles.input}
                       type="text"
                       name="fullName"
-                      placeholder="Aliyev Vali"
+                      placeholder={t("register.fields.fullName.placeholder")}
                       value={form.fullName}
                       onChange={handleChange("fullName")}
                       disabled={isLoading}
@@ -143,12 +208,12 @@ export default function RegistrationForm() {
                   </label>
 
                   <label className={styles.field}>
-                    <span className={styles.label}>Telefon raqami</span>
+                    <span className={styles.label}>{t("register.fields.phone.label")}</span>
                     <input
                       className={styles.input}
                       type="tel"
                       name="phone"
-                      placeholder="+998 __ ___-__-__"
+                      placeholder={t("register.fields.phone.placeholder")}
                       value={form.phone}
                       onChange={handlePhoneChange}
                       disabled={isLoading}
@@ -157,14 +222,14 @@ export default function RegistrationForm() {
                   </label>
 
                   <label className={styles.field}>
-                    <span className={styles.label}>Telegram foydalanuvchi nomi (Username)</span>
+                    <span className={styles.label}>{t("register.fields.telegramUsername.label")}</span>
                     <span className={styles.inputWrap}>
                       <Send className={styles.inputIcon} size={16} strokeWidth={2} aria-hidden="true" />
                       <input
                         className={`${styles.input} ${styles.inputWithIcon}`}
                         type="text"
                         name="telegramUsername"
-                        placeholder="@username yoki ism_familiya"
+                        placeholder={t("register.fields.telegramUsername.placeholder")}
                         value={form.telegramUsername}
                         onChange={handleChange("telegramUsername")}
                         disabled={isLoading}
@@ -174,43 +239,46 @@ export default function RegistrationForm() {
                   </label>
 
                   <label className={styles.field}>
-                    <span className={styles.label}>Loyiha nomi</span>
-                    <input
-                      className={styles.input}
-                      type="text"
-                      name="projectTitle"
-                      placeholder="Loyihangiz nomini kiriting"
-                      value={form.projectTitle}
-                      onChange={handleChange("projectTitle")}
-                      disabled={isLoading}
-                      required
-                    />
-                  </label>
-
-                  <label className={styles.field}>
-                    <span className={styles.label}>Loyiha saytining havolasi (URL)</span>
-                    <span className={styles.inputWrap}>
-                      <Link className={styles.inputIcon} size={16} strokeWidth={2} aria-hidden="true" />
-                      <input
-                        className={`${styles.input} ${styles.inputWithIcon}`}
-                        type="url"
-                        name="projectUrl"
-                        placeholder="https://loyiha-nomi.uz"
-                        value={form.projectUrl}
-                        onChange={handleChange("projectUrl")}
+                    <span className={styles.label}>{t("register.fields.whyStartup.label")}</span>
+                    <span className={styles.textareaWrap}>
+                      <Lightbulb className={styles.textareaIcon} size={16} strokeWidth={2} aria-hidden="true" />
+                      <textarea
+                        className={`${styles.input} ${styles.textarea}`}
+                        name="whyStartup"
+                        placeholder={t("register.fields.whyStartup.placeholder")}
+                        value={form.whyStartup}
+                        onChange={handleChange("whyStartup")}
                         disabled={isLoading}
+                        rows={4}
                         required
                       />
                     </span>
                   </label>
 
                   <label className={styles.field}>
-                    <span className={styles.label}>Jamoa a'zolari soni</span>
+                    <span className={styles.label}>{t("register.fields.expectations.label")}</span>
+                    <span className={styles.textareaWrap}>
+                      <Sparkles className={styles.textareaIcon} size={16} strokeWidth={2} aria-hidden="true" />
+                      <textarea
+                        className={`${styles.input} ${styles.textarea}`}
+                        name="expectations"
+                        placeholder={t("register.fields.expectations.placeholder")}
+                        value={form.expectations}
+                        onChange={handleChange("expectations")}
+                        disabled={isLoading}
+                        rows={4}
+                        required
+                      />
+                    </span>
+                  </label>
+
+                  <label className={styles.field}>
+                    <span className={styles.label}>{t("register.fields.teamSize.label")}</span>
                     <input
                       className={styles.input}
                       type="number"
                       name="teamSize"
-                      placeholder="Masalan, 4"
+                      placeholder={t("register.fields.teamSize.placeholder")}
                       min="1"
                       max="10"
                       value={form.teamSize}
@@ -223,10 +291,7 @@ export default function RegistrationForm() {
                   {status === "error" && (
                     <div className={styles.errorBox} role="alert">
                       <span className={styles.errorMark}>!</span>
-                      <p className={styles.errorText}>
-                        Arizani yuborishda xatolik yuz berdi. Internet aloqasini
-                        tekshirib, qaytadan urinib ko'ring.
-                      </p>
+                      <p className={styles.errorText}>{t("register.errorText")}</p>
                     </div>
                   )}
 
@@ -235,7 +300,7 @@ export default function RegistrationForm() {
                     className={`btn-pill btn-pill--full ${styles.submit}`}
                     disabled={isLoading}
                   >
-                    {isLoading ? "Yuborilmoqda..." : "Arizani yuborish"}
+                    {isLoading ? t("register.submitLoading") : t("register.submit")}
                   </button>
                 </form>
               )}

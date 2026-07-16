@@ -102,6 +102,29 @@
   padding-left: 40px;
 }
 
+.textareaWrap {
+  position: relative;
+  display: block;
+}
+
+.textareaIcon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: var(--mute);
+  pointer-events: none;
+}
+
+.textarea {
+  width: 100%;
+  height: auto;
+  min-height: 104px;
+  padding: 12px 14px 12px 40px;
+  line-height: 1.5;
+  resize: vertical;
+  font-family: inherit;
+}
+
 .input:focus {
   outline: none;
   border-color: var(--grad-violet);

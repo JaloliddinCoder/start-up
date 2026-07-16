@@ -1,52 +1,32 @@
 import { motion } from "framer-motion";
 import CardOrnament from "./CardOrnament";
 import TiltCard from "./TiltCard";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./TracksGrid.module.css";
 
 const TRACKS = [
-  {
-    icon: "◔",
-    accent: "blue",
-    title: "EdTech",
-    desc: "Ta'lim jarayonini raqamlashtiruvchi va o'qishni yanada samarali qiluvchi yechimlar.",
-  },
-  {
-    icon: "❖",
-    accent: "green",
-    title: "GreenTech",
-    desc: "Ekologik barqarorlik va resurslarni tejashga qaratilgan innovatsion loyihalar.",
-  },
-  {
-    icon: "◈",
-    accent: "purple",
-    title: "AI Solutions",
-    desc: "Sun'iy intellekt asosida real muammolarni hal qiluvchi mahsulotlar.",
-  },
-  {
-    icon: "◑",
-    accent: "red",
-    title: "Social Impact",
-    desc: "Jamiyatga ijtimoiy foyda keltiruvchi va muammolarni hal qiluvchi startaplar.",
-  },
+  { id: "edtech", icon: "◔", accent: "blue" },
+  { id: "greentech", icon: "❖", accent: "green" },
+  { id: "ai", icon: "◈", accent: "purple" },
+  { id: "social", icon: "◑", accent: "red" },
 ];
 
 export default function TracksGrid() {
+  const { t } = useLanguage();
+
   return (
     <section id="tracks" className="section">
       <div className="shell">
         <div className="section__head">
-          <div className="section__eyebrow eyebrow">Yo'nalishlar</div>
-          <h2 className="section__title">Loyihangiz uchun trek tanlang</h2>
-          <p className="section__desc">
-            To'rtta asosiy kategoriya bo'yicha g'oyangizni taqdim eting va mos
-            mentorlar bilan ishlang.
-          </p>
+          <div className="section__eyebrow eyebrow">{t("tracks.eyebrow")}</div>
+          <h2 className="section__title">{t("tracks.title")}</h2>
+          <p className="section__desc">{t("tracks.desc")}</p>
         </div>
 
         <div className={styles.grid}>
           {TRACKS.map((track, index) => (
             <motion.div
-              key={track.title}
+              key={track.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -57,8 +37,8 @@ export default function TracksGrid() {
                 <div className={`${styles.iconTile} ${styles[track.accent]}`}>
                   {track.icon}
                 </div>
-                <h3 className={styles.title}>{track.title}</h3>
-                <p className={styles.desc}>{track.desc}</p>
+                <h3 className={styles.title}>{t(`tracks.items.${track.id}.title`)}</h3>
+                <p className={styles.desc}>{t(`tracks.items.${track.id}.desc`)}</p>
               </TiltCard>
             </motion.div>
           ))}

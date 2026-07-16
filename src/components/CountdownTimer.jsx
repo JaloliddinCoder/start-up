@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./CountdownTimer.module.css";
 
 const TARGET_DATE = new Date("2026-07-27T09:00:00+05:00");
@@ -13,15 +14,11 @@ function getTimeLeft() {
   };
 }
 
-const UNITS = [
-  { key: "days", label: "Kun" },
-  { key: "hours", label: "Soat" },
-  { key: "minutes", label: "Daqiqa" },
-  { key: "seconds", label: "Soniya" },
-];
+const UNIT_KEYS = ["days", "hours", "minutes", "seconds"];
 
 export default function CountdownTimer() {
   const [time, setTime] = useState(getTimeLeft);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const id = setInterval(() => setTime(getTimeLeft()), 1000);
@@ -30,12 +27,12 @@ export default function CountdownTimer() {
 
   return (
     <div className={styles.timer} role="timer" aria-live="polite">
-      {UNITS.map((unit) => (
-        <div key={unit.key} className={styles.cell}>
+      {UNIT_KEYS.map((key) => (
+        <div key={key} className={styles.cell}>
           <span className={styles.value}>
-            {String(time[unit.key]).padStart(2, "0")}
+            {String(time[key]).padStart(2, "0")}
           </span>
-          <span className={styles.label}>{unit.label}</span>
+          <span className={styles.label}>{t(`countdown.${key}`)}</span>
         </div>
       ))}
     </div>

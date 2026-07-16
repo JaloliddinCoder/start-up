@@ -1,28 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./Faq.module.css";
 
-const FAQ_ITEMS = [
-  {
-    question: "Kimlar ishtirok eta oladi?",
-    answer: "O'zbekistondagi istalgan maktab yoki akademik litsey o'quvchilaridan iborat 2–6 kishilik jamoalar ishtirok etishi mumkin.",
-  },
-  {
-    question: "Ishtirok bepulmi?",
-    answer: "Ha, chempionatda ishtirok etish to'liq bepul. Barcha bootcamp va mentorlik dasturlari tashkilotchilar tomonidan qoplanadi.",
-  },
-  {
-    question: "Loyiha g'oyasi tayyor bo'lishi shartmi?",
-    answer: "Yo'q. Boshlang'ich g'oya yetarli — bootcamp davomida mentorlar bilan birgalikda uni to'liq mahsulotga aylantirasiz.",
-  },
-  {
-    question: "Qanday hujjatlar talab qilinadi?",
-    answer: "Ro'yxatdan o'tishda jamoa a'zolarining ismi, maktab nomi va loyiha qisqacha tavsifi kifoya qiladi.",
-  },
-];
+const FAQ_IDS = ["q1", "q2", "q3", "q4"];
 
 export default function Faq() {
   const [openIndex, setOpenIndex] = useState(0);
+  const { t } = useLanguage();
 
   const toggle = (index) => {
     setOpenIndex((current) => (current === index ? -1 : index));
@@ -32,16 +17,16 @@ export default function Faq() {
     <section id="faq" className="section">
       <div className="shell">
         <div className="section__head">
-          <div className="section__eyebrow eyebrow">Savol-javob</div>
-          <h2 className="section__title">Ko'p beriladigan savollar</h2>
+          <div className="section__eyebrow eyebrow">{t("faq.eyebrow")}</div>
+          <h2 className="section__title">{t("faq.title")}</h2>
         </div>
 
         <div className={styles.accordion}>
-          {FAQ_ITEMS.map((item, index) => {
+          {FAQ_IDS.map((id, index) => {
             const isOpen = index === openIndex;
             return (
               <motion.div
-                key={item.question}
+                key={id}
                 className={styles.item}
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +40,7 @@ export default function Faq() {
                   aria-controls={`faq-panel-${index}`}
                   onClick={() => toggle(index)}
                 >
-                  <span className={styles.question}>{item.question}</span>
+                  <span className={styles.question}>{t(`faq.items.${id}.question`)}</span>
                   <span className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>+</span>
                 </button>
                 <div
@@ -64,7 +49,7 @@ export default function Faq() {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className={styles.panelInner}>
-                    <p className={styles.answer}>{item.answer}</p>
+                    <p className={styles.answer}>{t(`faq.items.${id}.answer`)}</p>
                   </div>
                 </div>
               </motion.div>

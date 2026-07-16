@@ -1,31 +1,16 @@
+import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./Footer.module.css";
 
-const COLUMNS = [
-  {
-    title: "Chempionat",
-    links: ["Yo'nalishlar", "Jarayon", "Sovrinlar", "Ro'yxatdan o'tish"],
-  },
-  {
-    title: "Ishtirokchilar",
-    links: ["Qoidalar", "Baholash mezonlari", "Mentorlar", "Bootcamp"],
-  },
-  {
-    title: "Tashkilotchilar",
-    links: ["Target International School", "Hamkorlar", "Media uchun", "Ko'ngillilar"],
-  },
-  {
-    title: "Resurslar",
-    links: ["Pitch-deck shabloni", "Byudjet shabloni", "FAQ", "Aloqa"],
-  },
-  {
-    title: "Huquqiy",
-    links: ["Foydalanish shartlari", "Maxfiylik siyosati", "Cookie siyosati"],
-  },
-  {
-    title: "Aloqa",
-    links: ["info@targetschool.uz", "+998 71 200-00-00", "Toshkent, O'zbekiston"],
-  },
-];
+const COLUMN_IDS = ["championship", "participants", "organizers", "resources", "legal", "contact"];
+
+const COLUMN_LINK_IDS = {
+  championship: ["tracks", "timeline", "prizes", "register"],
+  participants: ["rules", "criteria", "mentors", "bootcamp"],
+  organizers: ["school", "partners", "media", "volunteers"],
+  resources: ["pitchDeck", "budget", "faq", "contact"],
+  legal: ["terms", "privacy", "cookies"],
+  contact: ["email", "phone", "address"],
+};
 
 const SOCIALS = [
   { label: "Telegram", href: "#", glyph: "T" },
@@ -35,18 +20,20 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className={styles.footer}>
       <div className="shell">
         <div className={styles.grid}>
-          {COLUMNS.map((column) => (
-            <div key={column.title} className={styles.column}>
-              <h4 className={styles.columnTitle}>{column.title}</h4>
+          {COLUMN_IDS.map((columnId) => (
+            <div key={columnId} className={styles.column}>
+              <h4 className={styles.columnTitle}>{t(`footer.columns.${columnId}.title`)}</h4>
               <ul className={styles.linkList}>
-                {column.links.map((link) => (
-                  <li key={link}>
+                {COLUMN_LINK_IDS[columnId].map((linkId) => (
+                  <li key={linkId}>
                     <a href="#" className={styles.link}>
-                      {link}
+                      {t(`footer.columns.${columnId}.links.${linkId}`)}
                     </a>
                   </li>
                 ))}
@@ -59,7 +46,7 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <span className={styles.copyright}>
-            © {new Date().getFullYear()} Target International School. Barcha huquqlar himoyalangan.
+            © {new Date().getFullYear()} Target International School. {t("footer.rightsReserved")}
           </span>
           <div className={styles.socials}>
             {SOCIALS.map((social) => (
