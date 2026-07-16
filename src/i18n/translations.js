@@ -81,6 +81,25 @@ const translations = {
         social: { title: "Social Impact", desc: "Jamiyatga ijtimoiy foyda keltiruvchi va muammolarni hal qiluvchi startaplar." },
       },
     },
+    requirements: {
+      eyebrow: "Talablar",
+      title: "Qatnashish shartlari",
+      desc: "Chempionatda ishtirok etish uchun quyidagi 3 ta shartga rioya qilish zarur.",
+      items: {
+        ageLimit: {
+          label: "Yosh chegarasi",
+          desc: "Ishtirokchilar Target maktabining 5-sinfidan 10-sinfgacha bo'lgan o'quvchilari bo'lishi lozim.",
+        },
+        teamSize: {
+          label: "Jamoa tarkibi",
+          desc: "Ro'yxatdan o'tishdan oldin jamoada qat'iy ravishda 3 nafar ishtirokchi shakllantirilgan bo'lishi kerak.",
+        },
+        codingSkill: {
+          label: "Dasturlash ko'nikmasi",
+          desc: "Jamoa a'zolaridan kamida bir kishi coding (dasturlash) qobiliyatiga ega bo'lishi shart.",
+        },
+      },
+    },
     prizes: {
       eyebrow: "Asosiy Yutuqlar",
       title: "G'olib jamoalarni kutmoqda",
@@ -273,6 +292,25 @@ const translations = {
         social: { title: "Social Impact", desc: "Стартапы, приносящие пользу обществу и решающие социальные проблемы." },
       },
     },
+    requirements: {
+      eyebrow: "Требования",
+      title: "Условия участия",
+      desc: "Чтобы принять участие в чемпионате, необходимо соответствовать следующим 3 условиям.",
+      items: {
+        ageLimit: {
+          label: "Возрастное ограничение",
+          desc: "Участниками должны быть учащиеся школы Target с 5-го по 10-й класс.",
+        },
+        teamSize: {
+          label: "Состав команды",
+          desc: "Перед регистрацией в команде должно быть строго сформировано 3 участника.",
+        },
+        codingSkill: {
+          label: "Навыки программирования",
+          desc: "Как минимум один член команды должен обладать навыками кодинга (программирования).",
+        },
+      },
+    },
     prizes: {
       eyebrow: "Главные призы",
       title: "Победителей ждут призы",
@@ -463,6 +501,25 @@ const translations = {
         greentech: { title: "GreenTech", desc: "Innovative projects focused on environmental sustainability and resource efficiency." },
         ai: { title: "AI Solutions", desc: "AI-powered products that solve real-world problems." },
         social: { title: "Social Impact", desc: "Startups that bring social benefit and solve community problems." },
+      },
+    },
+    requirements: {
+      eyebrow: "Requirements",
+      title: "Participation Requirements",
+      desc: "To take part in the championship, you must meet the following 3 requirements.",
+      items: {
+        ageLimit: {
+          label: "Age Limit",
+          desc: "Participants must be Target School students from 5th to 10th grade.",
+        },
+        teamSize: {
+          label: "Team Composition",
+          desc: "A team of strictly 3 participants must be formed prior to registration.",
+        },
+        codingSkill: {
+          label: "Programming Skills",
+          desc: "At least one team member must have coding/programming skills.",
+        },
       },
     },
     prizes: {

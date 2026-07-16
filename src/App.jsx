@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import DashboardMockup from "./components/DashboardMockup";
 import MetricsGrid from "./components/MetricsGrid";
 import TracksGrid from "./components/TracksGrid";
+import Requirements from "./components/Requirements";
 import Prizes from "./components/Prizes";
 import WorkflowTimeline from "./components/WorkflowTimeline";
 import RegistrationForm from "./components/RegistrationForm";
@@ -19,6 +20,7 @@ function App() {
         <DashboardMockup />
         <MetricsGrid />
         <TracksGrid />
+        <Requirements />
         <Prizes />
         {/* <WorkflowTimeline /> */}
         <RegistrationForm />
