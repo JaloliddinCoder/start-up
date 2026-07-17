@@ -7,7 +7,7 @@ import styles from "./RegistrationForm.module.css";
 
 const PHONE_PREFIX = "+998 ";
 
-const GRADE_OPTIONS = ["grade5", "grade6", "grade7", "grade8", "grade9", "grade10", "other"];
+const GRADE_OPTIONS = ["grade5", "grade6", "grade7", "grade8", "grade9", "grade10",];
 
 // --- Telegram Bot API credentials -------------------------------------
 // Replace these with your live bot's credentials. Never hardcode real
