@@ -170,6 +170,20 @@ const translations = {
       desc: "Ariza 3 daqiqa vaqt oladi. Tasdiqlangandan so'ng operatorlarimiz siz bilan bog'lanadi.",
       fields: {
         fullName: { label: "To'liq ism", placeholder: "Aliyev Vali" },
+        schoolName: { label: "Qaysi maktabda o'qiysiz?", placeholder: "Target International School, 110-maktab..." },
+        grade: {
+          label: "Sinfingiz",
+          placeholder: "Sinfni tanlang",
+          options: {
+            grade5: "5-sinf",
+            grade6: "6-sinf",
+            grade7: "7-sinf",
+            grade8: "8-sinf",
+            grade9: "9-sinf",
+            grade10: "10-sinf",
+            other: "Boshqa",
+          },
+        },
         phone: { label: "Telefon raqami", placeholder: "+998 __ ___-__-__" },
         telegramUsername: { label: "Telegram foydalanuvchi nomi (Username)", placeholder: "@username yoki ism_familiya" },
         whyStartup: { label: "Nima uchun startup qurmoqchisiz?", placeholder: "G'oyangiz va maqsadingiz haqida qisqacha yozing..." },
@@ -381,6 +395,20 @@ const translations = {
       desc: "Заявка занимает 3 минуты. После подтверждения наши операторы свяжутся с вами.",
       fields: {
         fullName: { label: "Полное имя", placeholder: "Алиев Вали" },
+        schoolName: { label: "В какой школе вы учитесь?", placeholder: "Target International School, 110-maktab..." },
+        grade: {
+          label: "Ваш класс",
+          placeholder: "Выберите класс",
+          options: {
+            grade5: "5-й класс",
+            grade6: "6-й класс",
+            grade7: "7-й класс",
+            grade8: "8-й класс",
+            grade9: "9-й класс",
+            grade10: "10-й класс",
+            other: "Другое",
+          },
+        },
         phone: { label: "Номер телефона", placeholder: "+998 __ ___-__-__" },
         telegramUsername: { label: "Имя пользователя Telegram (Username)", placeholder: "@username или имя_фамилия" },
         whyStartup: { label: "Почему вы хотите создать стартап?", placeholder: "Кратко расскажите о своей идее и цели..." },
@@ -592,6 +620,20 @@ const translations = {
       desc: "The application takes 3 minutes. Our team will reach out once it's confirmed.",
       fields: {
         fullName: { label: "Full name", placeholder: "Aliyev Vali" },
+        schoolName: { label: "Which school do you attend?", placeholder: "Target International School, 110-maktab..." },
+        grade: {
+          label: "Your Grade / Class",
+          placeholder: "Select your grade",
+          options: {
+            grade5: "Grade 5",
+            grade6: "Grade 6",
+            grade7: "Grade 7",
+            grade8: "Grade 8",
+            grade9: "Grade 9",
+            grade10: "Grade 10",
+            other: "Other",
+          },
+        },
         phone: { label: "Phone number", placeholder: "+998 __ ___-__-__" },
         telegramUsername: { label: "Telegram username", placeholder: "@username or first_last" },
         whyStartup: { label: "Why do you want to build a startup?", placeholder: "Briefly share your idea and motivation..." },

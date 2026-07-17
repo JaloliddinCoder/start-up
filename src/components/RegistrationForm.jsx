@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lightbulb, Send, Sparkles } from "lucide-react";
+import { GraduationCap, Lightbulb, School, Send, Sparkles } from "lucide-react";
 import IllusionAsset from "./IllusionAsset";
 import { useLanguage } from "../i18n/LanguageContext";
 import styles from "./RegistrationForm.module.css";
 
 const PHONE_PREFIX = "+998 ";
+
+const GRADE_OPTIONS = ["grade5", "grade6", "grade7", "grade8", "grade9", "grade10", "other"];
 
 // --- Telegram Bot API credentials -------------------------------------
 // Replace these with your live bot's credentials. Never hardcode real
@@ -53,6 +55,8 @@ function buildTelegramMessage(form) {
     "🚨 *TARGET STARTUP CHAMPIONSHIP* 🚨",
     "",
     `👤 *Ism va Familiya:* ${form.fullName}`,
+    `🏫 *Maktabi:* ${form.schoolName}`,
+    `📚 *Sinfi:* ${form.grade}`,
     `📞 *Telefon:* ${form.phone}`,
     `📱 *Telegram:* ${form.telegramUsername}`,
     `👥 *Jamoa a'zolari:* ${form.teamSize}`,
@@ -84,6 +88,8 @@ async function sendToTelegramGroup(form) {
 function buildLeadPayload(form) {
   return {
     name: form.fullName,
+    schoolName: form.schoolName,
+    grade: form.grade,
     phone: form.phone,
     telegramUsername: form.telegramUsername,
     teamSize: form.teamSize,
@@ -118,6 +124,8 @@ async function sendToGoogleSheets(form) {
 
 const INITIAL_STATE = {
   fullName: "",
+  schoolName: "",
+  grade: "",
   phone: PHONE_PREFIX,
   telegramUsername: "",
   whyStartup: "",
@@ -205,6 +213,47 @@ export default function RegistrationForm() {
                       disabled={isLoading}
                       required
                     />
+                  </label>
+
+                  <label className={styles.field}>
+                    <span className={styles.label}>{t("register.fields.schoolName.label")}</span>
+                    <span className={styles.inputWrap}>
+                      <School className={styles.inputIcon} size={16} strokeWidth={2} aria-hidden="true" />
+                      <input
+                        className={`${styles.input} ${styles.inputWithIcon}`}
+                        type="text"
+                        name="schoolName"
+                        placeholder={t("register.fields.schoolName.placeholder")}
+                        value={form.schoolName}
+                        onChange={handleChange("schoolName")}
+                        disabled={isLoading}
+                        required
+                      />
+                    </span>
+                  </label>
+
+                  <label className={styles.field}>
+                    <span className={styles.label}>{t("register.fields.grade.label")}</span>
+                    <span className={styles.inputWrap}>
+                      <GraduationCap className={styles.inputIcon} size={16} strokeWidth={2} aria-hidden="true" />
+                      <select
+                        className={`${styles.input} ${styles.inputWithIcon} ${styles.select}`}
+                        name="grade"
+                        value={form.grade}
+                        onChange={handleChange("grade")}
+                        disabled={isLoading}
+                        required
+                      >
+                        <option value="" disabled>
+                          {t("register.fields.grade.placeholder")}
+                        </option>
+                        {GRADE_OPTIONS.map((option) => (
+                          <option key={option} value={t(`register.fields.grade.options.${option}`)}>
+                            {t(`register.fields.grade.options.${option}`)}
+                          </option>
+                        ))}
+                      </select>
+                    </span>
                   </label>
 
                   <label className={styles.field}>
